@@ -1,0 +1,10 @@
+<form class="container"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit(form.value)">
+  <h1>Login</h1>
+  <input type="text" name="username" placeholder="username" formControlName="username">
+  <br>
+  <input type="password" name="password" placeholder="password" formControlName="password">
+  <br><br>
+  <input type="submit" [disabled]="!form.valid" value="submit">
+</form>

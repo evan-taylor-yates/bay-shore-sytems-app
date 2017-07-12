@@ -1,0 +1,30 @@
+<h1>Templates</h1>
+
+<button class="new-btn"
+        [routerLink]="['new']">New Template</button>
+<nav class="site-nav">
+  <ul class="group">
+    <li *ngFor="let name of names">
+    <a [class.selected]="selectedName === name"
+      (click)="onSelectName(name)"
+    >{{name}}</a></li>
+
+  </ul>
+</nav>
+
+<div class="template-container"
+     *ngFor="let template of templates">
+  <div class="template-image">
+    <!--<img src="{{template.main_img}}" alt="{{template.name}}">-->
+  </div>
+  <div class="template-description">{{template.name}}
+{{template.model}}
+  </div>
+  <div class="template-buttons">
+    <button class="delete-btn"
+            (click)="onDeleteTemplate(template.id)">Delete</button>
+    <button class="edit-btn"
+            [routerLink]="[template.name, template.model]">View</button>
+  </div>
+</div>
+
