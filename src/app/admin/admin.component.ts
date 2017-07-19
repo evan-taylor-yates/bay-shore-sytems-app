@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  private selectedNav: string
+  private selectedNav: string;
   constructor(
     private authService: AuthService,
     private router: Router

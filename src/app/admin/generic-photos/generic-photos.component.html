@@ -1,20 +1,21 @@
-<p>
-  generic-photos works!
-</p>
-<a
-  [routerLink]="[ template.name, template.model ]"
-  *ngFor="let template of templates">
-  {{ template.name }}
-</a>
-<br>
 <h1>Generic Photos</h1>
-<div
-  *ngFor="let picture of pictures">
-  <div class="image-container">
-    <img src="{{picture.path}}" alt="{{picture.name}}">
-    <div class="image-title">
-      <h1>{{picture.name}}</h1>
-    </div>
+
+<button class="new-btn"
+        [routerLink]="['new']">Add Photo</button>
+
+<div class="template-container"
+     *ngFor="let upload of uploads">
+  <div class="template-image">
+    <!--<img src="{{template.main_img}}" alt="{{template.name}}">-->
+  </div>
+  <div class="template-description">
+    {{upload.name}}
+  </div>
+  <div class="template-buttons">
+    <button class="delete-btn"
+            (click)="onDeletePicture(upload)">Delete</button>
+    <button class="edit-btn"
+            [routerLink]="[upload.name]">View</button>
   </div>
 </div>
 

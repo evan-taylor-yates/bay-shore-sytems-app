@@ -4,6 +4,7 @@ import { Upload } from '../shared/upload';
 import * as _ from 'lodash';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'upload-form',
   templateUrl: './upload-form.component.html',
@@ -25,11 +26,10 @@ export class UploadFormComponent implements OnInit {
   }
 
   uploadSingle() {
-    console.log('uploading');
     const file = this.selectedFiles.item(0)
     this.currentUpload = new Upload(file);
     this.upSvc.pushUpload(this.currentUpload);
-    this.router.navigate(['/generic-photos']);
+    this.router.navigate(['/admin', 'generic-photos']);
   }
 
   uploadMulti() {
@@ -42,5 +42,6 @@ export class UploadFormComponent implements OnInit {
         this.upSvc.pushUpload(this.currentUpload);
       }
     );
+    this.router.navigate(['/admin', 'generic-photos']);
   }
 }

@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!--Note: On the 'form' element, the 'action' attribute is not pointing to a route, nor is the 'method'
+      attribute pointing to a method, such as post(). The reason for this is because
+       this form should not get submitted to a server. Instead, Angular should handle
+       the form-->
+      <br>
+      <button (click)="isService()"
+              class="btn btn-primary">Service</button>
+      <button (click)="isProduction()"
+              class="btn btn-primary">Production</button>
+      <br>
+      <br>
+      <form *ngIf="production"
+            (ngSubmit)="onSubmit()"
+            #userForm="ngForm">
+        <div class="form-group">
+          <label for="userID">User ID</label>
+          <!--the label can only connect to the iput via the input's ID-->
+          <input type="text"
+                 id="userID"
+                 class="form-control"
+                 ngModel
+                 name="userID"
+                 required>
+        </div>
+        <div class="form-group">
+          <label for="custID">Customer ID</label>
+          <!--the label can only connect to the input via the input's ID-->
+          <input type="text"
+                 id="custID"
+                 class="form-control"
+                 ngModel
+                 name="custID"
+                 required>
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <!--the label can only connect to the input via the input's ID-->
+          <input type="text"
+                 id="location"
+                 class="form-control"
+                 [ngModel] = "'Rathdrum, ID'"
+                 name="location">
+        </div>
+        <div class="form-group">
+          <label for="model">Select Model</label>
+          <!--the label can only connect to the iput via the input's ID-->
+          <select id="model"
+                  class="form-control"
+                  ngModel
+                  name="model"
+                  required>
+            <option *ngFor="let model of models"
+                    value="{{model.name}}">{{model.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="modelSerial">Model Serial</label>
+          <!--the label can only connect to the input via the input's ID-->
+          <input type="text"
+                 id="modelSerial"
+                 class="form-control"
+                 ngModel
+                 name="modelSerial"
+                 required>
+        </div>
+        <button class="btn btn-primary"
+                type="submit"
+                [disabled]="!userForm.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

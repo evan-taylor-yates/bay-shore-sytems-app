@@ -28,6 +28,10 @@ export class LoginComponent implements OnInit {
       console.log(user);
       this.authService.login();
       this.router.navigate(['admin']);
+    } else if (user.username === 'user' && user.password === 'password') {
+      console.log(user);
+      this.authService.login();
+      this.router.navigate(['user']);
     }
   }
 };
