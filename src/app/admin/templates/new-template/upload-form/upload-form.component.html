@@ -1,4 +1,4 @@
-<div *ngIf="currentUpload">
+<div *ngIf="currentUpload && validUpload">
   <progress class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>
 
   Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
@@ -6,32 +6,20 @@
 
 
 <div class="box">
-
-  <h3>Add Photo</h3>
-
-  <label>
-    <input type="file" class="button" (change)="detectFiles($event)">
-  </label>
-
-  <button class="button is-primary"
-          [disabled]="!selectedFiles"
-          (click)="uploadSingle()">Add</button>
-
-  <hr>
-
-  <h3>Multiple File Upload</h3>
+  <h3>Upload Files</h3>
 
   <label>
     <input type="file" class="button" (change)="detectFiles($event)" multiple>
   </label>
 
 
-  <button class="button is-primary"
+  <button class="btn btn-primary"
           [disabled]="!selectedFiles"
           (click)="uploadMulti()">
 
-    Upload Multiple
+    Upload
   </button>
 </div>
-Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help
+<div class="row" *ngIf="backButton === 'true'">
+  <button (click)="goBack()" class="btn btn-success">Done</button>
+</div>

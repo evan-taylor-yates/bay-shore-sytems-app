@@ -5,25 +5,25 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { UploadService } from './upload.service';
-import { UploadFormComponent } from '../upload-form/upload-form.component';
+// import { UploadFormComponent } from '../upload-form/upload-form.component';
 // import { UploadsListComponent } from '../uploads-list/uploads-list.component';
 // import { UploadDetailComponent } from '../upload-detail/upload-detail.component';
 
-import { Routes, RouterModule } from '@angular/router';
+// import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
-  { path: '', component: UploadFormComponent }
-];
+// const routes: Routes = [
+//   { path: '', component: UploadFormComponent }
+// ];
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     AngularFireDatabaseModule,
-    RouterModule.forChild(routes)
+    // RouterModule.forChild(routes)
   ],
   declarations: [
-    UploadFormComponent
+    // UploadFormComponent
     // UploadsListComponent,
     // UploadDetailComponent,
   ],

@@ -3,19 +3,28 @@
 <button class="new-btn"
         [routerLink]="['new']">Add Photo</button>
 
-<div class="template-container"
-     *ngFor="let upload of uploads">
-  <div class="template-image">
-    <!--<img src="{{template.main_img}}" alt="{{template.name}}">-->
-  </div>
-  <div class="template-description">
-    {{upload.name}}
-  </div>
-  <div class="template-buttons">
-    <button class="delete-btn"
-            (click)="onDeletePicture(upload)">Delete</button>
-    <button class="edit-btn"
-            [routerLink]="[upload.name]">View</button>
+<div class="row">
+  <div class="col-xs-6 col-md-2 col-md-offset-2"
+       *ngFor="let upload of uploads">
+    <img class="img-responsive" src="{{upload.url}}" />
+    <p>{{convertName(upload.name)}}</p>
+    <button class="btn btn-danger" (click)="onDeletePicture(upload)">Delete</button>
   </div>
 </div>
+
+<!--<div class="template-container"-->
+     <!--*ngFor="let upload of uploads">-->
+  <!--<div class="template-image">-->
+    <!--&lt;!&ndash;<img src="{{template.main_img}}" alt="{{template.name}}">&ndash;&gt;-->
+  <!--</div>-->
+  <!--<div class="template-description">-->
+    <!--{{upload.name}}-->
+  <!--</div>-->
+  <!--<div class="template-buttons">-->
+    <!--<button class="delete-btn"-->
+            <!--(click)="onDeletePicture(upload)">Delete</button>-->
+    <!--<button class="edit-btn"-->
+            <!--[routerLink]="[upload.name]">View</button>-->
+  <!--</div>-->
+<!--</div>-->
 

@@ -36,7 +36,9 @@ button {
   font-size: 100%;
 }
 
-
+img {
+  object-fit: cover;
+}
 
 .new-btn {
   color: #fff;

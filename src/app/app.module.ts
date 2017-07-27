@@ -37,8 +37,15 @@ import { UploadService } from './admin/templates/new-template/shared/upload.serv
 
 import { UploadFormComponent } from './admin/templates/new-template/upload-form/upload-form.component';
 import { UserComponent } from './user/user.component';
+import { Routes, RouterModule } from '@angular/router';
+import { ImageCaptureComponent } from './user/image-capture/image-capture.component';
 
 
+const routes: Routes = [
+  { path: '', component: UploadFormComponent }
+];
+
+// import { UserFormValidatorDirective } from
 
 @NgModule({
   declarations: [
@@ -54,7 +61,8 @@ import { UserComponent } from './user/user.component';
     NewGenericPhotoComponent,
     EditGenericPhotoComponent,
     UploadFormComponent,
-    UserComponent
+    UserComponent,
+    ImageCaptureComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +71,8 @@ import { UserComponent } from './user/user.component';
     ReactiveFormsModule,
     AppRoutingModule,
     SharedModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    RouterModule.forChild(routes)
   ],
   providers: [
     AuthService,

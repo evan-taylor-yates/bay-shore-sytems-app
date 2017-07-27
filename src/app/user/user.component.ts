@@ -1,96 +1,24 @@
-import {Component, ViewChild} from '@angular/core';
-import { NgForm} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { NgForm, AbstractControl, ValidatorFn } from '@angular/forms';
+import {UploadService} from '../admin/templates/new-template/shared/upload.service';
+import {Http} from '@angular/http';
+
 
 @Component({
   selector: 'user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
   // ViewChild gets access to the element with the element reference 'f' on it. Then, it stores
   // that content in the 'signupForm' variable (here the type is 'NgForm')
-  models = [
-    {
-      id: 1,
-      name: 'TR20'
-    },
-    {
-      id: 2,
-      name: 'TR40'
-    },
-    {
-      id: 3,
-      name: 'TR80'
-    },
-    {
-      id: 4,
-      name: 'TR110'
-    },
-    {
-      id: 4,
-      name: 'TR150'
-    },
-    {
-      id: 5,
-      name: 'TR200'
-    },
-    {
-      id: 6,
-      name: 'LAD50'
-    },
-    {
-      id: 7,
-      name: 'LAD80'
-    },
-    {
-      id: 8,
-      name: 'LAD100'
-    },
-    {
-      id: 9,
-      name: 'LAD250'
-    },
-    {
-      id: 10,
-      name: 'LAD400'
-    },
-    {
-      id: 11,
-      name: 'DH15'
-    },
-    {
-      id: 12,
-      name: 'DH20'
-    },
-    {
-      id: 13,
-      name: 'DH30'
-    },
-    {
-      id: 14,
-      name: 'DH40'
-    },
-    {
-      id: 15,
-      name: 'DH60'
-    },
-    {
-      id: 16,
-      name: 'AERA1008'
-    },
-    {
-      id: 17,
-      name: 'AERA1420'
-    },
-    {
-      id: 18,
-      name: 'AERA1430'
-    },
-    {
-      id: 19,
-      name: 'AERA1440'
-    }
-  ]
+  templates;
+  names;
+  current_name;
+  models;
+  current_model;
+  uploads = [];
+  current_image;
 
   @ViewChild('userForm') userForm: NgForm;
   production = false;
@@ -102,8 +30,19 @@ export class UserComponent {
     model: '',
     modelSerial: ''
   };
-
   submitted = false;
+
+  constructor(private uploadService: UploadService, private http: Http) {}
+
+
+  ngOnInit() {
+    this.http.get('https://angular-http-tutorial.firebaseio.com/templates.json').subscribe(
+      (templates) => {
+        this.templates = templates.json();
+        this.names = Object.getOwnPropertyNames(this.templates);
+      }
+    );
+  }
 
   isService() {
     this.service = true;
@@ -116,8 +55,26 @@ export class UserComponent {
 
   }
 
+  setName(name) {
+    if (name !== 'filler') {
+      this.current_name = name;
+      this.models = Object.getOwnPropertyNames(this.templates[name]);
+    }
+  }
+
+  setModel(model) {
+    if (model !== 'filler') {
+      this.current_model = model;
+    }
+  }
+
   onSubmit() {
-    console.log(this.userForm);
+    this.submitted = true;
+    const myTemplate = this.templates[this.current_name][this.current_model];
+    const imageKeys = Object.getOwnPropertyNames(myTemplate);
+    for (const key of imageKeys) {
+      this.uploads.push(myTemplate[key]);
+    }
     // this.submitted = true;
     // this.user.username = this.signupForm.value.userData.username;
     // this.user.email = this.signupForm.value.userData.email;
@@ -127,5 +84,19 @@ export class UserComponent {
     //
     // // This resets form data and all properties like touched, dirty, valid, etc...
     // this.signupForm.reset();
+  }
+  selectedImage(event) {
+    console.log(event);
+  }
+
+  convertName(url) {
+    let processedName = '';
+    for (const char of url) {
+      if (char === '.') {
+        break;
+      }
+      processedName += char;
+    }
+    return processedName;
   }
 }

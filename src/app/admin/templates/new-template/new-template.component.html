@@ -1,6 +1,97 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<upload-form></upload-form>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form #form="ngForm">
+        <div id="template-data"
+             ngModelGroup="templateData"
+             #templateData="ngModelGroup">
+          <div class="form-group">
+            <label for="template-name">Name</label>
+            <!--the label can only connect to the input via the input's ID-->
+            <input type="text"
+                   id="template-name"
+                   class="form-control"
+                   [(ngModel)]="name"
+                   name="template-name"
+                   required
+                   [attr.disabled]="disabled">
+          </div>
+          <div class="form-group">
+            <label for="template-model">Model</label>
+            <!--the label can only connect to the input via the input's ID-->
+            <input type="text"
+                   id="template-model"
+                   class="form-control"
+                   [(ngModel)]="model"
+                   name="template-model"
+                   required
+                   [attr.disabled]="disabled">
+          </div>
+          <button (click)="toggleDisabled()"
+                  *ngIf="disabled===null"
+                  class="btn btn-primary">Submit</button>
+        </div>
+        <div *ngIf="disabled">
+          <div class="form-group">
+            <label for="generic-search">Generic Photo Search</label>
+            <!--the label can only connect to the input via the input's ID-->
+            <input type="text"
+                   id="generic-search"
+                   class="form-control"
+                   name="generic-search"
+                   ngModel
+                   (input)="onSearchInput($event)">
+            <br>
+            <div *ngIf="generic_search_key !== undefined">
+              <div class="col-xs-6 col-md-2 col-md-offset-0"
+                   *ngFor="let result of generic_search_results">
+                <img class="img-responsive" src="{{result.url}}" />
+                <p>{{convertName(result.name)}}</p>
+                <button class="btn btn-success" (click)="onAddGenericPicture(result)">Add</button>
+                <br>
+                <br>
+              </div>
+              <br/>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <button *ngIf="!upload"
+              (click)="toggleUpload()"
+              class="btn btn-primary">Upload Photos</button>
+      <upload-form *ngIf="upload" basePath="/templates/{{name}}/{{model}}" backButton={{backButton}}></upload-form>
+    </div>
+  </div>
+  <div class="row" *ngIf="disabled">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <div *ngIf="template_photos">
+        <h1>Selected Photos</h1>
+        <p *ngIf="template_photos.length === 0">No Photos Selected</p>
+        <div *ngIf="template_photos.length > 0">
+          <div  class="col-xs-6 col-md-2 col-md-offset-0"
+                *ngFor="let result of template_photos">
+            <img class="img-responsive" src="{{result.url}}" />
+            <p>{{convertName(result.name)}}</p>
+            <button class="btn btn-danger" (click)="onDeletePicture(result)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="row" *ngIf="disabled">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <button *ngIf="template_photos" class="btn btn-success" (click)="onSave()">Save</button>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" *ngIf="!submitted">
       <!--Note: On the 'form' element, the 'action' attribute is not pointing to a route, nor is the 'method'
       attribute pointing to a method, such as post(). The reason for this is because
        this form should not get submitted to a server. Instead, Angular should handle
@@ -45,15 +45,31 @@
                  name="location">
         </div>
         <div class="form-group">
+          <label for="name">Select Name</label>
+          <!--the label can only connect to the iput via the input's ID-->
+          <select id="name"
+                  class="form-control"
+                  ngModel
+                  (ngModelChange)="setName($event)"
+                  name="name"
+                  required>
+            <option value="filler" name="Please select name"></option>
+            <option *ngFor="let name of names"
+                    value="{{name}}">{{name}}</option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="current_name">
           <label for="model">Select Model</label>
           <!--the label can only connect to the iput via the input's ID-->
           <select id="model"
                   class="form-control"
                   ngModel
+                  (ngModelChange)="setModel($event)"
                   name="model"
                   required>
+            <option value="filler" name="Please select model"></option>
             <option *ngFor="let model of models"
-                    value="{{model.name}}">{{model.name}}</option>
+                    value="{{model}}">{{model}}</option>
           </select>
         </div>
         <div class="form-group">
@@ -71,5 +87,16 @@
                 [disabled]="!userForm.valid">Submit</button>
       </form>
     </div>
+  </div>
+  <div class="row" *ngIf="submitted">
+    <h1>Click an image to start in-browser camera</h1>
+    <div class="col-xs-6 col-md-2 col-md-offset-2"
+         *ngFor="let upload of uploads">
+      <img class="img-responsive" src="{{upload.url}}" (click)="selectedImage(upload)"/>
+      <p>{{convertName(upload.name)}}</p>
+    </div>
+  </div>
+  <div class="row" *ngIf="current_image">
+    <image-capture image="{{current_image}}"></image-capture>
   </div>
 </div>

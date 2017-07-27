@@ -12,28 +12,32 @@ import { Upload } from './new-generic-photo/shared/upload';
 export class GenericPhotosComponent implements OnInit {
   private uploads: Upload[];
 
-  constructor(
-    private uploadService: UploadService
-  ) { }
+  constructor(private uploadService: UploadService) {
+  }
 
   ngOnInit() {
-    this.uploadService.getUploads()
+    this.uploadService.getUploads('/generic_photos')
       .subscribe(
-        (uploads: Upload[]) => { this.uploads = uploads; }
+        (uploads: Upload[]) => {
+          this.uploads = uploads;
+        }
       );
     console.log(this.uploads);
 
   }
+
   onDeletePicture(upload) {
-    this.uploadService.deleteUpload(upload);
-  }
-  getPics() {
-    const query = { };
-    this.uploadService.getUploads(query);
-    console.log(query);
-    // this.picturesService.getPictures().subscribe(
-    //   (pictures: Object) => { console.log(pictures); }
-    // );
+    this.uploadService.deleteUpload(upload, '/generic_photos');
   }
 
+  convertName(url) {
+    let processedName = '';
+    for (const char of url) {
+      if (char === '.') {
+        break;
+      }
+      processedName += char;
+    }
+    return processedName;
+  }
 }

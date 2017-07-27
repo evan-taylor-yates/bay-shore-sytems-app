@@ -1,17 +1,26 @@
-<div class="admin-header">
-  <p>
-    Admin
-  </p>
-  <nav class="site-nav">
-    <ul class="group">
-      <li><a (click)="onNavChange('Templates')"
-             [class.selected]="selectedNav === 'Templates'">Templates</a></li>
-      <li><a (click)="onNavChange('Generic Photos')"
-             [class.selected]="selectedNav === 'Generic Photos'">Generic Photos</a></li>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <a class="navbar-brand" style="cursor: default;">Admin</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a (click)="onNavChange('Templates')"
+           class="nav-link"
+           [class.selected]="selectedNav === 'Templates'">Templates</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="onNavChange('Generic Photos')"
+           class="nav-link"
+           [class.selected]="selectedNav === 'Generic Photos'">Generic Photos</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()"
+           id="logout"
+           class="nav-link">Logout</a>
+      </li>
     </ul>
-  </nav>
-  <a (click)="logout()" class="logout">Logout</a>
-</div>
+  </div>
+</nav>
 <div class="admin-body">
   <router-outlet></router-outlet>
 </div>
